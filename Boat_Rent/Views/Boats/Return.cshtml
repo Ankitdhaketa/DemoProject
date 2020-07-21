@@ -1,0 +1,62 @@
+﻿@model Boat_Rent.Models.Customer
+
+@{
+    ViewBag.Title = "Return";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Return Boat</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.BoatId)
+        
+        <div class="form-group">
+            @Html.LabelFor(model => model.BoatNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BoatNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BoatNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+       
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input id="btnsubmit" type="submit" value="Return" class="btn btn-default" />
+            </div>
+        </div>
+        @if (Model != null)
+        {
+        <div class="form-group">
+            <label id="lbltime" value="Rent Time:"  style="color:red; font-weight:bold;font-size:16px;padding-left:200px">Rent Time(hrs.): @Model.Time</label><br />
+            <label id="lblprice"  style="color:red; font-weight:bold;font-size:16px;padding-left:200px">Price(Rs.): @Model.Price</label>
+        </div>
+        }
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+@*<script type="text/javascript">
+    $(document).ready(function () {
+        $("#btnsubmit").click(function () {
+            $("#BoatNumber").val('');
+        })
+    })
+   
+    
+
+
+    </script>*@
+}
